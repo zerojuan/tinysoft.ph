@@ -1,5 +1,4 @@
 // Jean's javascript goes here
-console.log( 'hello!' );
 
 $( document ).ready( function() {
     setInterval( blink, 1000 );
