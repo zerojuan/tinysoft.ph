@@ -45,7 +45,7 @@ function add() {
         dance( circles );
     }, 1000 );
 }
-
+// TODO: change position of current circle
 function dance( circles ) {
     var circleGroup = circles.enter()
         .append( 'circle' );
