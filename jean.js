@@ -10,7 +10,7 @@ $( document ).ready( function() {
     spans = letters[ 0 ].children;
     setInterval( blink, 1000 );
     jump();
-    // add();
+    add();
 });
 
 function blink() {
@@ -38,19 +38,22 @@ function add() {
         .attr( 'transform', 'translate( 20, 20 )' )
         .style( 'fill', 'red' );
 
-    var circles = svg.selectAll( 'circle' )
-        .data( [ 32, 54, 152, 705 ] );
+    var data = [ 32, 54, 152, 705 ]
 
     setInterval( function() {
+        var circles = svg.selectAll( '.dots')
+            .data( data.map( function( elm ) {
+                return elm + (Math.random() * 100);
+            }));
         dance( circles );
     }, 1000 );
 }
 // TODO: change position of current circle
 function dance( circles ) {
-    var circleGroup = circles.enter()
-        .append( 'circle' );
+    circles.enter().append( 'circle' )
+        .attr( 'class', 'dots');
 
-    circleGroup.attr( 'cy', function( d, i) {
+    circles.attr( 'cy', function( d, i) {
             return Math.random() * i;
         })
         .attr( 'cx', function( d, i ) {
