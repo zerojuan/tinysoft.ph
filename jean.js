@@ -3,18 +3,21 @@
 var h1 = null;
 var letters = null;
 var spans = null;
+var cnt = 0;
+var walkInterval;
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
     letters = h1.lettering();
     spans = letters[ 0 ].children;
-    setInterval( blink, 1000 );
+    // setInterval( blink, 1000 );
+    walkInterval = setInterval( walk( 5 ), 1000 );
     jump();
     add();
 });
 
-function blink() {
-    h1.addClass( 'red' )
+function blink( item ) {
+    $( item ).addClass( 'red' )
         .fadeTo( 'slow', 0.5 )
         .fadeTo( 'slow', 1.0 );
 }
@@ -24,6 +27,7 @@ function jump() {
         if ( typeof parseInt( i ) !== NaN ) {
             $( spans[ i ] ).delay( 300 * i ).queue( function( next ) {
                 $( this ).addClass( 'jump' );
+                setInterval( blink( this ), 1000 );
                 next();
             });
         }
@@ -53,7 +57,7 @@ function dance( circles ) {
     circles.enter().append( 'circle' )
         .attr( 'class', 'dots');
 
-    circles.attr( 'cy', function( d, i) {
+    circles.transition().attr( 'cy', function( d, i) {
             return Math.random() * i;
         })
         .attr( 'cx', function( d, i ) {
@@ -62,4 +66,18 @@ function dance( circles ) {
         .attr( 'r', function( d ) {
             return Math.sqrt( d * Math.random() );
         });
+}
+// TODO: make the letters walk
+function walk( distance ) {
+    cnt = cnt + 1;
+    if ( cnt === 20 ) {
+        clearInterval( walkInterval );
+        return;
+    }
+    console.log( 'counter: ', cnt );
+    $.each( spans, function( i, val ) {
+        if ( typeof parseInt( i ) !== NaN ) {
+            $( spans[ i ] ).animate( { left: '-' + ( cnt * distance ) + 'px' } );
+        }
+    });
 }
