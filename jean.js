@@ -4,14 +4,14 @@ var h1 = null;
 var letters = null;
 var spans = null;
 var cnt = 0;
-var walkInterval;
+var walkInterval = setInterval( walk, 1000 );
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
     letters = h1.lettering();
     spans = letters[ 0 ].children;
     // setInterval( blink, 1000 );
-    walkInterval = setInterval( walk( 5 ), 1000 );
+    walkInterval;
     jump();
     add();
 });
@@ -68,16 +68,16 @@ function dance( circles ) {
         });
 }
 // TODO: make the letters walk
-function walk( distance ) {
+function walk() {
     cnt = cnt + 1;
-    if ( cnt === 20 ) {
+    if ( cnt === 40 ) {
         clearInterval( walkInterval );
         return;
     }
     console.log( 'counter: ', cnt );
     $.each( spans, function( i, val ) {
         if ( typeof parseInt( i ) !== NaN ) {
-            $( spans[ i ] ).animate( { left: '-' + ( cnt * distance ) + 'px' } );
+            $( spans[ i ] ).animate( { left: '-' + ( cnt * 5 ) + 'px' } );
         }
     });
 }
