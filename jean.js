@@ -81,3 +81,4 @@ function walk() {
         }
     });
 }
+// TODO: add walk from right side
