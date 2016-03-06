@@ -5,6 +5,7 @@ var letters = null;
 var spans = null;
 var cnt = 0;
 var walkInterval = setInterval( walk, 1000 );
+var walkRightInterval = setInterval( walkFromRight, 1000 );
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
@@ -82,3 +83,11 @@ function walk() {
     });
 }
 // TODO: add walk from right side
+function walkFromRight() {
+    $.each( spans, function( i, val ) {
+        if ( typeof parseInt( i ) !== NaN ) {
+            $( spans[ i ] ).animate( { right: ( cnt * 5 ) + 'px' } );
+        }
+    });
+    // cnt++;
+}
