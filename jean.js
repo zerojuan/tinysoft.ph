@@ -5,7 +5,7 @@ var letters = null;
 var spans = null;
 var cnt = 0;
 var walkInterval = setInterval( walk, 1000 );
-var walkRightInterval = setInterval( walkFromRight, 1000 );
+// var walkRightInterval = setInterval( walkFromRight, 1000 );
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
@@ -73,6 +73,7 @@ function walk() {
     cnt = cnt + 1;
     if ( cnt === 40 ) {
         clearInterval( walkInterval );
+        // walkRightInterval;
         return;
     }
     console.log( 'counter: ', cnt );
@@ -80,14 +81,21 @@ function walk() {
         if ( typeof parseInt( i ) !== NaN ) {
             $( spans[ i ] ).animate( { left: '-' + ( cnt * 5 ) + 'px' } );
         }
+
+        if ( cnt >= 40 ) {
+            $( spans[ i ] ).stop();
+        }
     });
 }
 // TODO: add walk from right side
 function walkFromRight() {
-    $.each( spans, function( i, val ) {
-        if ( typeof parseInt( i ) !== NaN ) {
-            $( spans[ i ] ).animate( { right: ( cnt * 5 ) + 'px' } );
-        }
-    });
-    // cnt++;
+    // cnt = cnt + 1;
+    console.log( 'counter2: ', cnt );
+    if ( cnt >= 40 ) {
+        $.each( spans, function( i, val ) {
+            if ( typeof parseInt( i ) !== NaN ) {
+                $( spans[ i ] ).animate( { left: null, right: '-' + ( cnt * 5 ) + 'px' } );
+            }
+        }); 
+    }
 }
