@@ -4,8 +4,8 @@ var h1 = null;
 var letters = null;
 var spans = null;
 var cnt = 0;
+var outside = false;
 var walkInterval = setInterval( walk, 1000 );
-var walkRightInterval;
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
@@ -70,34 +70,23 @@ function dance( circles ) {
 }
 // TODO: make the letters walk
 function walk() {
+    var width = $( window ).width();
+
     cnt = cnt + 1;
-    if ( cnt === 40 ) {
-        clearInterval( walkInterval );
-        walkRightInterval = setInterval( walkFromRight, 1000 );
-        return;
-    }
     console.log( 'counter: ', cnt );
     $.each( spans, function( i, val ) {
         if ( typeof parseInt( i ) !== NaN ) {
-            $( spans[ i ] ).animate( { left: '-' + ( cnt * 5 ) + 'px' } );
+            $( spans[ i ] ).animate( { left: '-' + ( cnt * 10 ) + 'px' } );
         }
 
-        if ( cnt >= 40 ) {
-            $( spans[ i ] ).stop();
+        if ( i === spans.length - 1 && $( spans[ i ] ).offset().left < -10 ) {
+            outside = true;
+        }
+
+        if ( outside && i === spans.length - 1 ) {
+            cnt = 0;
+            outside = false;
+            $( spans ).animate( { left: width + 'px' }, 'slow' );
         }
     });
-}
-// TODO: add walk from right side
-function walkFromRight() {
-    cnt = cnt + 1;
-    console.log( 'counter2: ', cnt );
-    var width = $( window ).width();
-
-    if ( cnt >= 40 ) {
-        $.each( spans, function( i, val ) {
-            if ( typeof parseInt( i ) !== NaN ) {
-                $( spans[ i ] ).animate( { left: + ( width - cnt * 5 ) + 'px' } );
-            }
-        }); 
-    }
 }
