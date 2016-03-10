@@ -87,6 +87,14 @@ function walk() {
             cnt = 0;
             outside = false;
             $( spans ).animate( { left: width + 'px' }, 'slow' );
+            colorize();
         }
     });
+}
+
+function colorize() {
+    var r = Math.floor( Math.random() * 256 );
+    var g = Math.floor( Math.random() * 256 );
+    var b = Math.floor( Math.random() * 256 );
+    $( 'body' ).css( 'background-color', 'rgb(' + r + ',' + g + ',' + b + ')');
 }
