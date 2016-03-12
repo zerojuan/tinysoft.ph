@@ -86,7 +86,7 @@ function walk() {
         if ( outside && i === spans.length - 1 ) {
             cnt = 0;
             outside = false;
-            $( spans ).animate( { left: width + 'px' }, 'slow' );
+            $( spans ).animate( { left: ( width - 200 ) + 'px' }, 'slow' );
             colorize();
         }
     });
