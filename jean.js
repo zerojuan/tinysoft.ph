@@ -1,5 +1,6 @@
 // Jean's javascript goes here
 
+var header = null;
 var h1 = null;
 var letters = null;
 var spans = null;
@@ -9,6 +10,7 @@ var walkInterval = setInterval( walk, 1000 );
 
 $( document ).ready( function() {
     h1 = $( '.developer-card.jean h1' );
+    header = $( '.header h1' );
     letters = h1.lettering();
     spans = letters[ 0 ].children;
     // setInterval( blink, 1000 );
@@ -21,6 +23,9 @@ function blink( item ) {
     $( item ).addClass( 'red' )
         .fadeTo( 'slow', 0.5 )
         .fadeTo( 'slow', 1.0 );
+
+    $( header ).fadeOut( 500 )
+        .fadeIn( 500 );
 }
 
 function jump() {
